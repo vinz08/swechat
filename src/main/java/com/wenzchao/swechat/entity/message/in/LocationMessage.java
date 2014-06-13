@@ -8,41 +8,41 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class LocationMessage extends BaseMessage {
 
-	private String location_X; // 地理位置维度
-	private String location_Y; // 地理位置经度
-	private String scale; // 地图缩放大小
-	private String label; // 地理位置信息
+	private String Location_X; // 地理位置维度
+	private String Location_Y; // 地理位置经度
+	private String Scale; // 地图缩放大小
+	private String Label; // 地理位置信息
 
 	public String getLocation_X() {
-		return location_X;
+		return Location_X;
 	}
 
 	public void setLocation_X(String location_X) {
-		this.location_X = location_X;
+		Location_X = location_X;
 	}
 
 	public String getLocation_Y() {
-		return location_Y;
+		return Location_Y;
 	}
 
 	public void setLocation_Y(String location_Y) {
-		this.location_Y = location_Y;
+		Location_Y = location_Y;
 	}
 
 	public String getScale() {
-		return scale;
+		return Scale;
 	}
 
 	public void setScale(String scale) {
-		this.scale = scale;
+		Scale = scale;
 	}
 
 	public String getLabel() {
-		return label;
+		return Label;
 	}
 
 	public void setLabel(String label) {
-		this.label = label;
+		Label = label;
 	}
 
 }

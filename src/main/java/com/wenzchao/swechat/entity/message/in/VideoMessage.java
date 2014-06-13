@@ -8,23 +8,23 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class VideoMessage extends BaseMessage {
 
-	private String mediaId; // 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
-	private String thumbMediaId; // 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
+	private String MediaId; // 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+	private String ThumbMediaId; // 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
 
 	public String getMediaId() {
-		return mediaId;
+		return MediaId;
 	}
 
 	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
+		MediaId = mediaId;
 	}
 
 	public String getThumbMediaId() {
-		return thumbMediaId;
+		return ThumbMediaId;
 	}
 
 	public void setThumbMediaId(String thumbMediaId) {
-		this.thumbMediaId = thumbMediaId;
+		ThumbMediaId = thumbMediaId;
 	}
 
 }

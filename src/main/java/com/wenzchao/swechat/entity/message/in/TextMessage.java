@@ -8,14 +8,14 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class TextMessage extends BaseMessage {
 
-	private String content;// 消息内容
+	private String Content;// 消息内容
 
 	public String getContent() {
-		return content;
+		return Content;
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.Content = content;
 	}
 
 }

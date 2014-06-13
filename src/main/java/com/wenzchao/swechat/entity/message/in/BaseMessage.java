@@ -7,50 +7,50 @@ package com.wenzchao.swechat.entity.message.in;
  * 
  */
 public class BaseMessage {
-	private String toUserName; // 开发者微信号
-	private String fromUserName; // 发送方帐号（一个OpenID）
-	private long createTime; // 消息创建时间 （整型）
-	private String msgType; // 接收消息类型 text/image/voice/video/location/link
-	private long msgId; // 消息id，64位整型
+	private String ToUserName; // 开发者微信号
+	private String FromUserName; // 发送方帐号（一个OpenID）
+	private long CreateTime; // 消息创建时间 （整型）
+	private String MsgType; // 接收消息类型 text/image/voice/video/location/link
+	private long MsgId; // 消息id，64位整型
 
 	public String getToUserName() {
-		return toUserName;
+		return ToUserName;
 	}
 
 	public void setToUserName(String toUserName) {
-		this.toUserName = toUserName;
+		ToUserName = toUserName;
 	}
 
 	public String getFromUserName() {
-		return fromUserName;
+		return FromUserName;
 	}
 
 	public void setFromUserName(String fromUserName) {
-		this.fromUserName = fromUserName;
+		FromUserName = fromUserName;
 	}
 
 	public long getCreateTime() {
-		return createTime;
+		return CreateTime;
 	}
 
 	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
+		CreateTime = createTime;
 	}
 
 	public String getMsgType() {
-		return msgType;
+		return MsgType;
 	}
 
 	public void setMsgType(String msgType) {
-		this.msgType = msgType;
+		MsgType = msgType;
 	}
 
 	public long getMsgId() {
-		return msgId;
+		return MsgId;
 	}
 
 	public void setMsgId(long msgId) {
-		this.msgId = msgId;
+		MsgId = msgId;
 	}
 
 }

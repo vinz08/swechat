@@ -8,14 +8,14 @@ package com.wenzchao.swechat.entity.message.out;
  */
 public class VoiceMessage extends BaseMessage {
 
-	private String mediaId; // 通过上传多媒体文件，得到的id
+	private String MediaId; // 通过上传多媒体文件，得到的id
 
 	public String getMediaId() {
-		return mediaId;
+		return MediaId;
 	}
 
 	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
+		this.MediaId = mediaId;
 	}
 
 }

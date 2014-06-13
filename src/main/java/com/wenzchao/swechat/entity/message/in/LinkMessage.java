@@ -8,32 +8,32 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class LinkMessage extends BaseMessage {
 
-	private String title; // 消息标题
-	private String description; // 消息描述
-	private String url; // 消息链接
+	private String Title; // 消息标题
+	private String Description; // 消息描述
+	private String Url; // 消息链接
 
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		Title = title;
 	}
 
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		Description = description;
 	}
 
 	public String getUrl() {
-		return url;
+		return Url;
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		Url = url;
 	}
 
 }

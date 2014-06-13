@@ -8,23 +8,23 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class VoiceMessage extends BaseMessage {
 
-	private String mediaId; // 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
-	private String format; // 语音格式，如amr，speex等
+	private String MediaId; // 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+	private String Format; // 语音格式，如amr，speex等
 
 	public String getMediaId() {
-		return mediaId;
+		return MediaId;
 	}
 
 	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
+		MediaId = mediaId;
 	}
 
 	public String getFormat() {
-		return format;
+		return Format;
 	}
 
 	public void setFormat(String format) {
-		this.format = format;
+		Format = format;
 	}
 
 }

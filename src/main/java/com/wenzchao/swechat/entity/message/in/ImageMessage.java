@@ -8,23 +8,23 @@ package com.wenzchao.swechat.entity.message.in;
  */
 public class ImageMessage extends BaseMessage {
 
-	private String picUrl; // 图片链接
-	private String mediaId; // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
+	private String PicUrl; // 图片链接
+	private String MediaId; // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
 
 	public String getPicUrl() {
-		return picUrl;
+		return PicUrl;
 	}
 
 	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+		PicUrl = picUrl;
 	}
 
 	public String getMediaId() {
-		return mediaId;
+		return MediaId;
 	}
 
 	public void setMediaId(String mediaId) {
-		this.mediaId = mediaId;
+		MediaId = mediaId;
 	}
 
 }

@@ -8,41 +8,41 @@ package com.wenzchao.swechat.entity.message.out;
  */
 public class BaseMessage {
 
-	private String toUserName; // 接收方帐号（一个OpenID）
-	private String fromUserName; // 开发者微信号
-	private long createTime; // 消息创建时间 （整型）
-	private String msgType; // 接收消息类型 text/image/voice/video/music/news
+	private String ToUserName; // 接收方帐号（一个OpenID）
+	private String FromUserName; // 开发者微信号
+	private long CreateTime; // 消息创建时间 （整型）
+	private String MsgType; // 接收消息类型 text/image/voice/video/music/news
 
 	public String getToUserName() {
-		return toUserName;
+		return ToUserName;
 	}
 
 	public void setToUserName(String toUserName) {
-		this.toUserName = toUserName;
+		this.ToUserName = toUserName;
 	}
 
 	public String getFromUserName() {
-		return fromUserName;
+		return FromUserName;
 	}
 
 	public void setFromUserName(String fromUserName) {
-		this.fromUserName = fromUserName;
+		this.FromUserName = fromUserName;
 	}
 
 	public long getCreateTime() {
-		return createTime;
+		return CreateTime;
 	}
 
 	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
+		this.CreateTime = createTime;
 	}
 
 	public String getMsgType() {
-		return msgType;
+		return MsgType;
 	}
 
 	public void setMsgType(String msgType) {
-		this.msgType = msgType;
+		this.MsgType = msgType;
 	}
 
 }

@@ -8,41 +8,41 @@ package com.wenzchao.swechat.entity.message.out;
  */
 public class Article {
 
-	private String title; // 图文消息标题
-	private String description; // 图文消息描述
-	private String picUrl; // 图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
-	private String url; // 点击图文消息跳转链接
+	private String Title; // 图文消息标题
+	private String Description; // 图文消息描述
+	private String PicUrl; // 图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
+	private String Url; // 点击图文消息跳转链接
 
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.Title = title;
 	}
 
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.Description = description;
 	}
 
 	public String getPicUrl() {
-		return picUrl;
+		return PicUrl;
 	}
 
 	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+		this.PicUrl = picUrl;
 	}
 
 	public String getUrl() {
-		return url;
+		return Url;
 	}
 
 	public void setUrl(String url) {
-		this.url = url;
+		this.Url = url;
 	}
 
 }
