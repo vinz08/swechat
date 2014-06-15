@@ -15,7 +15,6 @@ public class SystemInitListener implements ServletContextListener {
 
 	private static Logger log = Logger.getLogger(SystemInitListener.class);
 	
-	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		log.info("weixin api appid:" + AccessTokenThread.appid);
         log.info("weixin api appsecret:" + AccessTokenThread.appsecret);
@@ -32,7 +31,6 @@ public class SystemInitListener implements ServletContextListener {
         }
 	}
 
-	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		
 	}
