@@ -10,7 +10,8 @@
 	<mvc:default-servlet-handler />
 	<mvc:interceptors>
 	    <mvc:interceptor>
-	        <mvc:mapping path="/admin/*"/>
+	        <mvc:mapping path="/admin/**"/>
+	        <mvc:mapping path="/admin/**.jsp"/>
 	        <bean class="com.wenzchao.wechat.interceptor.LoginInterceptor"></bean>
 	    </mvc:interceptor>
 	</mvc:interceptors>
