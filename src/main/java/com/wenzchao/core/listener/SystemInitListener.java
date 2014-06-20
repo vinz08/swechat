@@ -1,4 +1,4 @@
-package com.wenzchao.swechat.listener;
+package com.wenzchao.core.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

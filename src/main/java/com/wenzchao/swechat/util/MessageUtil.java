@@ -12,15 +12,15 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.wenzchao.swechat.entity.message.out.Article;
+import com.wenzchao.swechat.entity.message.out.MusicMessage;
+import com.wenzchao.swechat.entity.message.out.NewsMessage;
+import com.wenzchao.swechat.entity.message.out.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
-import com.wenzchao.swechat.entity.message.out.Article;
-import com.wenzchao.swechat.entity.message.out.MusicMessage;
-import com.wenzchao.swechat.entity.message.out.NewsMessage;
-import com.wenzchao.swechat.entity.message.out.TextMessage;
 
 /**
  * 消息工具类
@@ -103,7 +103,7 @@ public class MessageUtil {
 	 * @param textMessage
 	 * @return xml
 	 */
-	public static String textMessageToXml(TextMessage textMessage) {
+	public static String textMessage2Xml(TextMessage textMessage) {
 		xstream.alias("xml", textMessage.getClass());
 		return xstream.toXML(textMessage);
 	}
@@ -114,7 +114,7 @@ public class MessageUtil {
 	 * @param musicMessage
 	 * @return xml
 	 */
-	public static String musicMessageToXml(MusicMessage musicMessage) {
+	public static String musicMessage2Xml(MusicMessage musicMessage) {
 		xstream.alias("xml", musicMessage.getClass());
 		return xstream.toXML(musicMessage);
 	}
@@ -125,7 +125,7 @@ public class MessageUtil {
 	 * @param newsMessage
 	 * @return xml
 	 */
-	public static String newsMessageToXml(NewsMessage newsMessage) {
+	public static String newsMessage2Xml(NewsMessage newsMessage) {
 		xstream.alias("xml", newsMessage.getClass());
 		xstream.alias("item", new Article().getClass());
 		return xstream.toXML(newsMessage);

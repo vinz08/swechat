@@ -14,9 +14,9 @@ import com.wenzchao.swechat.util.WeixinUtil;
 public class AccessTokenThread implements Runnable {
 	private static Logger log = Logger.getLogger(AccessTokenThread.class);
 	// 第三方用户唯一凭证
-	public static String appid = "wxf7fe1d00188e7307";
+	public static String appid = "wx30f06532b8b629f4";
 	// 第三方用户唯一凭证密钥
-	public static String appsecret = "d541e2d012aed341b111ec904342c7ee";
+	public static String appsecret = "06ea942c7f9c055e04829efebb6d4bd1";
 
 	public static AccessToken accessToken = null;
 

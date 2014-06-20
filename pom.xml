@@ -32,11 +32,6 @@
     </dependency>
     <dependency>
     	<groupId>com.alibaba</groupId>
-    	<artifactId>druid</artifactId>
-    	<version>1.0.3</version>
-    </dependency>
-    <dependency>
-    	<groupId>com.alibaba</groupId>
     	<artifactId>fastjson</artifactId>
     	<version>1.1.39</version>
     </dependency>
@@ -59,6 +54,11 @@
 		<groupId>dom4j</groupId>    
 		<artifactId>dom4j</artifactId>    
 		<version>1.6</version>  
+    </dependency>
+    <dependency>
+    	<groupId>com.cloudhopper.proxool</groupId>
+    	<artifactId>proxool</artifactId>
+    	<version>0.9.1</version>
     </dependency>
   </dependencies>
   <build>

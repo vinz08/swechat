@@ -32,9 +32,12 @@ public class BaseDao extends JdbcDaoSupport {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 
+	@Autowired
+	private DataSource dataSource;
+	
 	@Resource(name = "dataSource")
 	public void setSuperDataSource(DataSource dataSource) {
-		super.setDataSource(transactionManager.getDataSource());
+		super.setDataSource(dataSource);
 	}
 
 	public int update(String sql, List<Object> params) {
@@ -48,11 +51,11 @@ public class BaseDao extends JdbcDaoSupport {
 				result = this.getJdbcTemplate().update(sql, args);
 			}
 			log.info("执行更新SQL：" + sql);
-			log.info("参数：" + args);
+			log.info("参数：" + objectArr2Str(args));
 			log.info("执行结果：" + result + "条");
 		} catch (Exception e) {
 			log.error("执行更新SQL时发生错误：" + sql, e);
-			log.error("参数：" + args);
+			log.error("参数：" + objectArr2Str(args));
 		}
 		return result;
 	}
@@ -68,31 +71,83 @@ public class BaseDao extends JdbcDaoSupport {
 				mapList = this.getJdbcTemplate().queryForList(sql, args);
 			}
 			log.info("执行查询SQL：" + sql);
-			log.info("参数：" + args);
+			log.info("参数：" + objectArr2Str(args));
 			log.info("执行结果：" + mapList.size() + "条");
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
-			log.error("参数：" + args);
+			log.error("参数：" + objectArr2Str(args));
 		}
 		return mapList;
 	}
 
+	public int query4Integer(String sql, List<Object> params) {
+		Object args[] = null;
+		List<Integer> intList = null;
+		int result = -1;
+		try {
+			if (null == params) {
+				intList = this.getJdbcTemplate().queryForList(sql, Integer.class);
+			} else {
+				args = params.toArray();
+				intList = this.getJdbcTemplate().queryForList(sql, args, Integer.class);
+			}
+			if (!intList.isEmpty() && intList.size() > 0) {
+				result = intList.get(0);
+			}
+			log.info("执行查询SQL：" + sql);
+			log.info("参数：" + objectArr2Str(args));
+			log.info("执行结果：" + (intList == null ? 0 : intList.size()) + "条");
+		} catch (Exception e) {
+			log.error("执行查询SQL时发生错误：" + sql, e);
+			log.error("参数：" + objectArr2Str(args));
+		}
+		return result;
+	}
+	
+	public String query4String(String sql, List<Object> params) {
+		Object args[] = null;
+		List<String> strList = null;
+		String result = null;
+		try {
+			if (null == params) {
+				strList = this.getJdbcTemplate().queryForList(sql, String.class);
+			} else {
+				args = params.toArray();
+				strList = this.getJdbcTemplate().queryForList(sql, args, String.class);
+			}
+			if (!strList.isEmpty() && strList.size() > 0) {
+				result = strList.get(0);
+			}
+			log.info("执行查询SQL：" + sql);
+			log.info("参数：" + objectArr2Str(args));
+			log.info("执行结果：" + (strList == null ? 0 : strList.size()) + "条");
+		} catch (Exception e) {
+			log.error("执行查询SQL时发生错误：" + sql, e);
+			log.error("参数：" + objectArr2Str(args));
+		}
+		return result;
+	}
+	
 	public Map<String, Object> query4Map(String sql, List<Object> params) {
 		Object args[] = null;
+		List<Map<String, Object>> mapList = null;
 		Map<String, Object> map = null;
 		try {
 			if (null == params) {
-				map = this.getJdbcTemplate().queryForMap(sql);
+				mapList = this.getJdbcTemplate().queryForList(sql);
 			} else {
 				args = params.toArray();
-				map = this.getJdbcTemplate().queryForMap(sql, args);
+				mapList = this.getJdbcTemplate().queryForList(sql, args);
+			}
+			if (!mapList.isEmpty() && mapList.size() > 0) {
+				map = mapList.get(0);
 			}
 			log.info("执行查询SQL：" + sql);
-			log.info("参数：" + args);
-			log.info("执行结果：" + (map.isEmpty() ? 0 : 1) + "条");
+			log.info("参数：" + objectArr2Str(args));
+			log.info("执行结果：" + mapList.size() + "条");
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
-			log.error("参数：" + args);
+			log.error("参数：" + objectArr2Str(args));
 		}
 		return map;
 	}
@@ -128,7 +183,7 @@ public class BaseDao extends JdbcDaoSupport {
 						}
 					}
 					log.info("执行存储过程：" + STORED_PROCEDURE_NAME);
-					log.info("参数：" + ARGS);
+					log.info("参数：" + objectArr2Str(ARGS));
 					return statement;
 				}
 			}, new CallableStatementCallback<Object>() {
@@ -141,8 +196,22 @@ public class BaseDao extends JdbcDaoSupport {
 			});
 		} catch (Exception e) {
 			log.error("执行存储过程时发生错误：" + STORED_PROCEDURE_NAME, e);
-			log.error("参数：" + ARGS);
+			log.error("参数：" + objectArr2Str(ARGS));
 		}
 	}
 
+	private static String objectArr2Str(Object objArr[]) {
+		StringBuffer strBuffer = new StringBuffer("[");
+		if (null != objArr) {
+			for (int i = 0; i < objArr.length; i++) {
+				strBuffer.append(objArr[i].toString());
+				if (i != objArr.length - 1) {
+					strBuffer.append(", ");
+				}
+			}
+		}
+		strBuffer.append("]");
+		return strBuffer.toString();
+	}
+	
 }
