@@ -2,6 +2,7 @@ package com.wenzchao.core.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.CallableStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -40,6 +44,32 @@ public class BaseDao extends JdbcDaoSupport {
 		super.setDataSource(dataSource);
 	}
 
+	public int updateReturnKey(final String sql, List<Object> params) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		Object tempArgs[] = null;
+		int result = 0;
+		if (null != params) {
+			tempArgs = params.toArray();
+		}
+		final Object ARGS[] = tempArgs;
+		try {
+	        this.getJdbcTemplate().update(new PreparedStatementCreator() {
+	        	public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+	                PreparedStatement ps = conn.prepareStatement(sql, new String[] { "id" });
+	                for (int i = 0; i < ARGS.length; i++) {
+						ps.setObject((i + 1), ARGS[i]);
+					}
+	                return ps;
+	            }
+			}, keyHolder);
+	        result = keyHolder.getKey().intValue();
+		} catch (Exception e) {
+			log.error("执行更新SQL时发生错误：" + sql, e);
+			log.error("参数：" + objectArr2Str(ARGS));
+		}
+		return result;
+	}
+	
 	public int update(String sql, List<Object> params) {
 		Object args[] = null;
 		int result = 0;
@@ -204,7 +234,7 @@ public class BaseDao extends JdbcDaoSupport {
 		StringBuffer strBuffer = new StringBuffer("[");
 		if (null != objArr) {
 			for (int i = 0; i < objArr.length; i++) {
-				strBuffer.append(objArr[i].toString());
+				strBuffer.append(null == objArr[i] ? null : objArr[i].toString());
 				if (i != objArr.length - 1) {
 					strBuffer.append(", ");
 				}
