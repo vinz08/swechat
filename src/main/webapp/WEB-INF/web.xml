@@ -39,7 +39,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.wenzchao.swechat.listener.SystemInitListener</listener-class>
+		<listener-class>com.wenzchao.core.listener.SystemInitListener</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>druidStatView</servlet-name>
