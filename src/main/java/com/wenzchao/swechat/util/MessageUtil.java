@@ -12,10 +12,10 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.sentree.swechat.entity.message.out.Article;
-import com.sentree.swechat.entity.message.out.MusicMessage;
-import com.sentree.swechat.entity.message.out.NewsMessage;
-import com.sentree.swechat.entity.message.out.TextMessage;
+import com.wenzchao.swechat.entity.message.out.Article;
+import com.wenzchao.swechat.entity.message.out.MusicMessage;
+import com.wenzchao.swechat.entity.message.out.NewsMessage;
+import com.wenzchao.swechat.entity.message.out.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;

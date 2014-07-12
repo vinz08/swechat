@@ -16,10 +16,10 @@ import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.sentree.swechat.entity.base.AccessToken;
-import com.sentree.swechat.entity.base.OAuth;
-import com.sentree.swechat.entity.menu.Menu;
-import com.sentree.swechat.entity.user.UserInfo;
+import com.wenzchao.swechat.entity.base.AccessToken;
+import com.wenzchao.swechat.entity.base.OAuth;
+import com.wenzchao.swechat.entity.menu.Menu;
+import com.wenzchao.swechat.entity.user.UserInfo;
 
 /**
  * 公众平台通用接口工具类
