@@ -3,7 +3,7 @@ package com.wenzchao.core.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import com.wenzchao.swechat.entity.base.AccessToken;
+import com.wenzchao.wechat.entity.base.AccessToken;
 
 /**
  * SESSION管理员

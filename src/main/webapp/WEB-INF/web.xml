@@ -38,9 +38,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>com.wenzchao.core.listener.SystemInitListener</listener-class>
-	</listener>
 	<servlet>
 		<servlet-name>druidStatView</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
