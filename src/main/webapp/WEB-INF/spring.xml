@@ -8,13 +8,14 @@
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	<!-- 
 	<mvc:interceptors>
 	    <mvc:interceptor>
 	        <mvc:mapping path="/admin/**"/>
 	        <mvc:mapping path="/admin/**.jsp"/>
 	        <bean class="com.wenzchao.wechat.interceptor.LoginInterceptor"></bean>
 	    </mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 	<!-- <context:annotation-config /> -->
 	<context:component-scan base-package="com.wenzchao" />
 
@@ -28,8 +29,7 @@
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/net.dlhz.bs?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="url" value="jdbc:mysql://localhost:3306/net.dlhz.bs?useUnicode=true&amp;characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 		<!-- 配置初始化大小、最小、最大 -->
@@ -48,8 +48,7 @@
 		<property name="testOnReturn" value="false" />
 		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
 		<property name="poolPreparedStatements" value="true" />
-		<property name="maxPoolPreparedStatementPerConnectionSize"
-			value="20" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 		<!-- 配置监控统计拦截的filters -->
 		<property name="filters" value="wall,stat" />
 	</bean>
