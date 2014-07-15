@@ -1,0 +1,553 @@
+* {
+	font-family: "微软雅黑";
+	font-size: 14px;
+}
+
+body,div,ul,li,dl,dd {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #e7e8eb;
+}
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot'); /* IE9*/
+  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff') format('woff'), /* chrome、firefox */
+  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nav {
+	width: 100%;
+	height: 50px;
+	list-style-type: none;
+	background: #fff;
+	border-top: 4px solid #44b549;
+	border-bottom: 1px solid #ddd;
+}
+
+#nav li {
+	color: #000;
+	display: inline;
+	padding: 0 15px;
+	height: 50px;
+	line-height: 50px;
+	border-right: 1px solid #ddd;
+}
+
+#nav a {
+	text-decoration: none;
+	color: #808080;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#nav a:hover {
+	color: #000;
+}
+
+#nav a#change {
+	color: #e60000;
+}
+
+#nav a.menu.active {
+	color: #000;
+}
+
+#nav #last {
+	border-right: none;
+	border-left: 1px solid #ddd;
+	position: absolute;
+	right: 0;
+	height: 24px;
+	line-height: 24px;
+	top: 17px;
+}
+
+#last a {
+	font-size: 14px;
+}
+
+#frame {
+	width: 100%;
+	min-height: 650px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	border: none;
+}
+
+#list {
+	border: 1px solid #ddd;
+	background: #f3f3f3;
+	color: #808080;
+}
+
+#list dd {
+	padding: 2px 10px 5px;
+	margin: 5px 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#list.hide {
+	display: none;
+}
+
+.main {
+	width: 1000px;
+	margin: 10px auto;
+}
+
+.loading {
+	padding: 10px 10px 10px 30px;
+}
+
+.loading i {
+	color: #000;
+	font-size: 20px;
+	margin-right: 10px;
+}
+
+.circle {
+  -webkit-animation: icon-loading 2s infinite cubic-bezier(0.6,0,0,1);
+  -moz-animation: icon-loading 2s infinite cubic-bezier(0.6,0,0,1);
+  -ms-animation: icon-loading 2s infinite cubic-bezier(0.6,0,0,1);
+  animation: icon-loading 2s infinite cubic-bezier(0.6,0,0,1);
+}
+
+@keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@-moz-keyframes icon-loading {
+  from {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@-webkit-keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@-ms-keyframes icon-loading {
+  from {
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+table {
+	width: 960px;
+	border-spacing: 0;
+	margin-bottom: 15px;
+}
+
+table th,table td {
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.list {
+	border: 1px solid #ddd;
+	padding: 10px 20px;
+	margin: 15px 0 5px;
+	background: #fff;
+}
+
+.dialog {
+	position: absolute;
+	min-width: 980px;
+	height: 570px;
+	z-index: 10;
+	top: 0;
+}
+
+.dialog-body {
+	position: relative;
+	height: 450px;
+	overflow-y: scroll;
+}
+
+h4 {
+	width: 100%;
+	padding-bottom: 5px;
+	font-size: 16px;
+	border-bottom: 2px solid #ddd;
+}
+
+h4 a {
+	text-decoration: none;
+}
+
+h4 a:HOVER {
+	color: #000;
+}
+
+.form-group {
+	margin: 5px 0;
+}
+
+.form-group select,.form-group input,.form-group textarea,.form-pic {
+	width: 200px;
+	border: 1px solid #ddd;
+}
+
+.form-group select {
+	width: 212px;
+}
+
+.form-group textarea,.form-group input,.form-group select,.form-pic {
+	padding: 5px;
+}
+
+.form-group textarea {
+	width: 300px;
+	min-height: 80px;
+	resize: none;
+	overflow: hidden;
+}
+
+.form-group label {
+	display: inline-block;
+	min-width: 90px;
+}
+
+.form-group .checkbox {
+	width: 18px;
+	height: 18px;
+	border: none;
+}
+
+.form-group * {
+	vertical-align: middle;
+}
+
+.form-pic {
+	height: 111px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.form-pic.upload i {
+	position: absolute;
+	width: 50px;
+	margin: 30px 0 0 75px;
+	font-size: 50px;
+	color: #808080;
+}
+
+.form-pic.auto {
+	width: 300px;
+	height: auto;
+}
+
+table th {
+	border-bottom: 1px solid #e60000;
+	padding: 2px 0;
+	background: #f3f3f3;
+	min-width: 50px;
+}
+
+table td {
+	border-bottom: 1px solid #ddd;
+}
+
+.visible {
+	visibility: hidden;
+}
+
+.hide {
+	display: none;
+}
+
+.noimg {
+	color: #808080;
+}
+
+#menuList {
+	float: left;
+}
+
+#menuList,.submenuList {
+	list-style: none;
+	padding: 0;
+	width: 170px;
+}
+
+#menuList .dellink,.submenuList .dellink {
+	float: right;
+	color: #fe6673;
+}
+
+#menuList .menu,.submenuList .submenu {
+	width: 150px;
+	padding: 5px 8px;
+	margin-bottom: 1px;
+	cursor: pointer;
+}
+
+#menuList .menu {
+	background: #2ae0c8;
+	border-left: 4px solid #2ae0c8;
+}
+
+#menuList .menu.active {
+	background: #2ae0d8;
+}
+
+.submenuList .submenu {
+	background: #e7e8eb;
+	border-left: 4px solid #2ae0c8;
+}
+
+.submenuList .submenu.active {
+	background: #e7e8db;
+}
+
+#detail {
+	width: 750px;
+	float: right;
+}
+
+.news-col {
+	display: inline-block;
+	width: 315px;
+	vertical-align: top;
+}
+
+.news {
+	width: 295px;
+	border: 1px solid #ddd;
+	border-bottom: none;
+	margin: 0 auto 15px;
+	cursor: pointer;
+}
+
+.news ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.news ul li {
+	padding: 8px;
+	border-bottom: 1px solid #ddd;
+}
+
+.news p {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.news p a {
+	color: #000;
+	text-decoration: none;
+}
+
+.news .mainNews {
+	height: 155px;
+	padding-bottom: 11px;
+}
+
+.news .subNews {
+	height: 80px;
+}
+
+.news .mainNews img,.news .mainNews .noimg {
+	width: 279px;
+	height: 155px;
+	text-align: right;
+}
+
+.news .mainNews .noimg i,.news .subNews .noimg i {
+	font-size: 80px;
+}
+
+.news .mainNews p,.news .mainNews .mainCover {
+	width: 269px;
+	height: 40px;
+	padding: 5px;
+	margin-top: -50px;
+}
+
+.news .mainNews p {
+	padding: 5px;
+	position: absolute;
+	color: #fff;
+}
+
+.news .mainNews .mainCover {
+	position: relative;
+	background: #000;
+	opacity: 0.6;
+	filter: alpha(opacity = 60);
+	-moz-opacity: 0.6;
+	-khtml-opacity: 0.6;
+}
+
+.news .subNews img,.news .subNews .noimg {
+	width: 80px;
+	height: 80px;
+	float: right;
+}
+
+.news .subNews p {
+	width: 183px;
+	min-height: 80px;
+	line-height: 25px;
+	padding: 0 8px;
+	float: left;
+}
+
+.news .subNews p.max {
+	width: 263px;
+}
+
+.operationBox {
+	position: absolute;
+	background: #f4f5f9;
+	min-width: 50px;
+	height: 40px;
+	z-index: 2;
+	margin: 0;
+}
+
+.operationBox.checked {
+	display: block;
+}
+
+.delbtn,.editbtn,.viewbtn,.checkbtn {
+	color: #000;
+	width: 40px;
+	height: 30px;
+	padding: 5px;
+	line-height: 30px;
+	float: left;
+	text-align: center;
+	text-decoration: none;
+}
+
+.delbtn i,.editbtn i,.viewbtn i,.checkbtn i {
+	font-size: 24px;
+}
+
+.delbtn:HOVER,.editbtn:HOVER,.viewbtn:HOVER {
+	color: #808080;
+}
+
+#addSubNews {
+	text-align: center;
+}
+
+#addSubNews i {
+	color: #eee;
+	width: 80px;
+	font-size: 80px;
+}
+
+#addSubNews i:hover {
+	color: #808080;
+}
+
+#tempNews {
+	margin: 0;
+	position: absolute;
+}
+
+.page {
+	width: 100%;
+	height: 30px;
+	background: #fff;
+	margin-top: 15px;
+	border-top: 1px solid #ddd;
+}
+
+.page * {
+	margin: 0;
+	padding: 0;
+}
+
+.page dl {
+	height: 20px;
+	margin: 10px 0 0;
+}
+
+.page dd {
+	display: inline-block;
+	min-width: 25px;
+	text-align: center;
+	padding: 0 5px;
+	margin: 0 2px;
+}
+
+.page dd.page-navi a {
+	color: #888;
+	display: block;
+	text-decoration: none;
+}
+
+.page dd.page-navi a:hover {
+	color: #000;
+}
+
+.clear {
+	clear: both;
+	width: 100%;
+	height: 1px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.c-red {
+	color: #fe6673;
+}
+
+.c-green {
+	color: #44b549;
+}
