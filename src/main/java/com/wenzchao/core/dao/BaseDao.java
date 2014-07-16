@@ -7,20 +7,19 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.CallableStatementCreator;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * DAO基类
@@ -29,7 +28,7 @@ import org.springframework.stereotype.Repository;
  * 
  */
 @Repository
-public class BaseDao extends JdbcDaoSupport {
+public class BaseDao {
 
 	private static Logger log = Logger.getLogger(BaseDao.class);
 
@@ -37,13 +36,11 @@ public class BaseDao extends JdbcDaoSupport {
 	private DataSourceTransactionManager transactionManager;
 
 	@Autowired
-	private DataSource dataSource;
+	private DruidDataSource dataSource;
 	
-	@Resource(name = "dataSource")
-	public void setSuperDataSource(DataSource dataSource) {
-		super.setDataSource(dataSource);
-	}
-
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
 	public int updateReturnKey(final String sql, List<Object> params) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		Object tempArgs[] = null;
@@ -53,7 +50,7 @@ public class BaseDao extends JdbcDaoSupport {
 		}
 		final Object ARGS[] = tempArgs;
 		try {
-	        this.getJdbcTemplate().update(new PreparedStatementCreator() {
+	        jdbcTemplate.update(new PreparedStatementCreator() {
 	        	public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
 	                PreparedStatement ps = conn.prepareStatement(sql, new String[] { "id" });
 	                for (int i = 0; i < ARGS.length; i++) {
@@ -66,6 +63,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行更新SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(ARGS));
+			throw new RuntimeException();
 		}
 		return result;
 	}
@@ -75,10 +73,10 @@ public class BaseDao extends JdbcDaoSupport {
 		int result = 0;
 		try {
 			if (null == params) {
-				result = this.getJdbcTemplate().update(sql);
+				result = jdbcTemplate.update(sql);
 			} else {
 				args = params.toArray();
-				result = this.getJdbcTemplate().update(sql, args);
+				result = jdbcTemplate.update(sql, args);
 			}
 			log.info("执行更新SQL：" + sql);
 			log.info("参数：" + objectArr2Str(args));
@@ -86,6 +84,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行更新SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(args));
+			throw new RuntimeException();
 		}
 		return result;
 	}
@@ -95,10 +94,10 @@ public class BaseDao extends JdbcDaoSupport {
 		List<Map<String, Object>> mapList = null;
 		try {
 			if (null == params) {
-				mapList = this.getJdbcTemplate().queryForList(sql);
+				mapList = jdbcTemplate.queryForList(sql);
 			} else {
 				args = params.toArray();
-				mapList = this.getJdbcTemplate().queryForList(sql, args);
+				mapList = jdbcTemplate.queryForList(sql, args);
 			}
 			log.info("执行查询SQL：" + sql);
 			log.info("参数：" + objectArr2Str(args));
@@ -106,6 +105,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(args));
+			throw new RuntimeException();
 		}
 		return mapList;
 	}
@@ -116,10 +116,10 @@ public class BaseDao extends JdbcDaoSupport {
 		int result = -1;
 		try {
 			if (null == params) {
-				intList = this.getJdbcTemplate().queryForList(sql, Integer.class);
+				intList = jdbcTemplate.queryForList(sql, Integer.class);
 			} else {
 				args = params.toArray();
-				intList = this.getJdbcTemplate().queryForList(sql, args, Integer.class);
+				intList = jdbcTemplate.queryForList(sql, args, Integer.class);
 			}
 			if (!intList.isEmpty() && intList.size() > 0) {
 				result = intList.get(0);
@@ -130,6 +130,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(args));
+			throw new RuntimeException();
 		}
 		return result;
 	}
@@ -140,10 +141,10 @@ public class BaseDao extends JdbcDaoSupport {
 		String result = null;
 		try {
 			if (null == params) {
-				strList = this.getJdbcTemplate().queryForList(sql, String.class);
+				strList = jdbcTemplate.queryForList(sql, String.class);
 			} else {
 				args = params.toArray();
-				strList = this.getJdbcTemplate().queryForList(sql, args, String.class);
+				strList = jdbcTemplate.queryForList(sql, args, String.class);
 			}
 			if (!strList.isEmpty() && strList.size() > 0) {
 				result = strList.get(0);
@@ -154,6 +155,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(args));
+			throw new RuntimeException();
 		}
 		return result;
 	}
@@ -164,10 +166,10 @@ public class BaseDao extends JdbcDaoSupport {
 		Map<String, Object> map = null;
 		try {
 			if (null == params) {
-				mapList = this.getJdbcTemplate().queryForList(sql);
+				mapList = jdbcTemplate.queryForList(sql);
 			} else {
 				args = params.toArray();
-				mapList = this.getJdbcTemplate().queryForList(sql, args);
+				mapList = jdbcTemplate.queryForList(sql, args);
 			}
 			if (!mapList.isEmpty() && mapList.size() > 0) {
 				map = mapList.get(0);
@@ -178,6 +180,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行查询SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(args));
+			throw new RuntimeException();
 		}
 		return map;
 	}
@@ -190,7 +193,7 @@ public class BaseDao extends JdbcDaoSupport {
 		final String STORED_PROCEDURE_NAME = storedProcedure;
 		final Object ARGS[] = tempArgs;
 		try {
-			this.getJdbcTemplate().execute(new CallableStatementCreator() {
+			jdbcTemplate.execute(new CallableStatementCreator() {
 				public CallableStatement createCallableStatement(Connection conn) throws SQLException {
 					StringBuffer sqlBuffer = new StringBuffer("{").append(STORED_PROCEDURE_NAME).append("(");
 					int index = 1;
@@ -218,7 +221,6 @@ public class BaseDao extends JdbcDaoSupport {
 				}
 			}, new CallableStatementCallback<Object>() {
 				public Object doInCallableStatement(CallableStatement statement) throws SQLException, DataAccessException {
-					
 					log.info("执行存储过程成功：" + STORED_PROCEDURE_NAME);
 					return null;
 				}
@@ -227,6 +229,7 @@ public class BaseDao extends JdbcDaoSupport {
 		} catch (Exception e) {
 			log.error("执行存储过程时发生错误：" + STORED_PROCEDURE_NAME, e);
 			log.error("参数：" + objectArr2Str(ARGS));
+			throw new RuntimeException();
 		}
 	}
 
