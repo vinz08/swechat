@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,9 @@ public class BaseDao {
 	            }
 			}, keyHolder);
 	        result = keyHolder.getKey().intValue();
+	        log.info("执行更新SQL：" + sql);
+			log.info("参数：" + objectArr2Str(ARGS));
+			log.info("返回ID：" + result);
 		} catch (Exception e) {
 			log.error("执行更新SQL时发生错误：" + sql, e);
 			log.error("参数：" + objectArr2Str(ARGS));
@@ -89,6 +93,41 @@ public class BaseDao {
 		return result;
 	}
 
+	public int[] batchUpdate(String sql, List<List<Object>> paramsList) {
+		List<Object[]> argsList = new ArrayList<Object[]>();
+		int result[] = null;
+		try {
+			for (List<Object> params : paramsList) {
+				Object args[] = params.toArray();
+				argsList.add(args);
+			}
+			result = jdbcTemplate.batchUpdate(sql, argsList);
+			log.info("批量执行更新SQL：" + sql);
+			log.info("参数：" + objectArr2Str(argsList.toArray()));
+			log.info("执行结果：" + result + "条");
+		} catch (Exception e) {
+			log.error("批量执行更新SQL时发生错误：" + sql, e);
+			log.error("参数：" + objectArr2Str(argsList.toArray()));
+			throw new RuntimeException();
+		}
+		return result;
+	}
+	
+	public int[] batchUpdate(List<String> sqlList) {
+		int result[] = null;
+		String sqlArr[] = null;
+		try {
+			sqlArr = sqlList.toArray(new String[sqlList.size()]);
+			result = jdbcTemplate.batchUpdate(sqlArr);
+			log.info("批量执行更新SQL：" + sqlArr);
+			log.info("执行结果：" + result + "条");
+		} catch (Exception e) {
+			log.error("批量执行更新SQL时发生错误：" + sqlArr, e);
+			throw new RuntimeException();
+		}
+		return result;
+	}
+	
 	public List<Map<String, Object>> query4List(String sql, List<Object> params) {
 		Object args[] = null;
 		List<Map<String, Object>> mapList = null;

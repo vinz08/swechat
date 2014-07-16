@@ -75,11 +75,6 @@
     	<artifactId>commons-httpclient</artifactId>
     	<version>3.1</version>
     </dependency>
-    <dependency>
-       <groupId> org.aspectj</groupId >
-       <artifactId>aspectjweaver</artifactId >
-       <version> 1.6.11</version >
-	</dependency>
   </dependencies>
   <build>
     <finalName>swechat</finalName>
