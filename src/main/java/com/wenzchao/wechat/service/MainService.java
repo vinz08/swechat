@@ -36,13 +36,11 @@ public class MainService {
 			Map<String, String> requestMap = MessageUtil.parseXml(request);
 
 			// 发送方帐号（open_id）
-			String fromUserName = requestMap.get("FromUserName");
+			String openId = requestMap.get("FromUserName");
 			// 公众帐号
-			String toUserName = requestMap.get("ToUserName");
+			String originalId = requestMap.get("ToUserName");
 			// 消息类型
 			String msgType = requestMap.get("MsgType");
-
-			log.info("user " + fromUserName + " send request.");
 
 			if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_TEXT)) {
 				
@@ -59,15 +57,7 @@ public class MainService {
 				String eventType = requestMap.get("Event");
 				// 订阅
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-					respContent = "谢谢您的关注！";
-					// 回复文本消息
-					TextMessage textMessage = new TextMessage();
-					textMessage.setToUserName(fromUserName);
-					textMessage.setFromUserName(toUserName);
-					textMessage.setCreateTime(new Date().getTime());
-					textMessage.setMsgType(MessageUtil.OUT_MESSAGE_TYPE_TEXT);
-					textMessage.setContent(respContent);
-					respMessage = MessageUtil.textMessage2Xml(textMessage);
+					
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { // 取消订阅
 					// 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) { // 自定义菜单点击事件
