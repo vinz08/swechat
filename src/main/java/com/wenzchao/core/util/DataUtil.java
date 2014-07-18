@@ -22,4 +22,15 @@ public class DataUtil {
 		return JSON.parseObject(JSON.toJSONString(map), clazz);
 	}
 	
+	/**
+	 * Map转换对象
+	 * 
+	 * @param map
+	 * @param clazz
+	 * @return
+	 */
+	public static Object strMap2Object(Map<String, String> map, Class<?> clazz) {
+		return JSON.parseObject(JSON.toJSONString(map), clazz);
+	}
+	
 }

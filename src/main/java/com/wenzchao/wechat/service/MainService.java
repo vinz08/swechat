@@ -10,9 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.wenzchao.wechat.entity.message.out.Article;
-import com.wenzchao.wechat.entity.message.out.NewsMessage;
-import com.wenzchao.wechat.entity.message.out.TextMessage;
+import com.wenzchao.core.util.DataUtil;
+import com.wenzchao.wechat.entity.message.in.BaseMessage;
+import com.wenzchao.wechat.entity.message.in.EventMessage;
+import com.wenzchao.wechat.entity.message.in.ImageMessage;
+import com.wenzchao.wechat.entity.message.in.KeyEvent;
+import com.wenzchao.wechat.entity.message.in.LinkMessage;
+import com.wenzchao.wechat.entity.message.in.LocationEvent;
+import com.wenzchao.wechat.entity.message.in.LocationMessage;
+import com.wenzchao.wechat.entity.message.in.QRCodeEvent;
+import com.wenzchao.wechat.entity.message.in.TextMessage;
+import com.wenzchao.wechat.entity.message.in.VoiceMessage;
 import com.wenzchao.wechat.util.MessageUtil;
 
 @Service
@@ -29,45 +37,71 @@ public class MainService {
 	public String processRequest(HttpServletRequest request) {
 		String respMessage = null;
 		try {
-			// 默认返回的文本消息内容
-			String respContent = "感谢您的关注！";
 
 			// xml请求解析
 			Map<String, String> requestMap = MessageUtil.parseXml(request);
+			
+			String openId = requestMap.get("FromUserName"); // 发送方帐号(OpenID)
+			String originalId = requestMap.get("ToUserName"); // 公众帐号(原始ID)
+			String msgType = requestMap.get("MsgType"); // 消息类型
 
-			// 发送方帐号（open_id）
-			String openId = requestMap.get("FromUserName");
-			// 公众帐号
-			String originalId = requestMap.get("ToUserName");
-			// 消息类型
-			String msgType = requestMap.get("MsgType");
-
-			if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_TEXT)) {
+			switch (msgType) {
+			case MessageUtil.IN_MESSAGE_TYPE_TEXT:
+				TextMessage textMessage = (TextMessage) DataUtil.strMap2Object(requestMap, TextMessage.class);
 				
-			} else if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_IMAGE)) {
+				break;
+			case MessageUtil.IN_MESSAGE_TYPE_IMAGE:
+				ImageMessage imageMessage = (ImageMessage) DataUtil.strMap2Object(requestMap, ImageMessage.class);
 				
-			} else if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_LOCATION)) {
+				break;
+			case MessageUtil.IN_MESSAGE_TYPE_LOCATION:
+				LocationMessage locationMessage = (LocationMessage) DataUtil.strMap2Object(requestMap, LocationMessage.class);	
 				
-			} else if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_LINK)) {
+				break;
+			case MessageUtil.IN_MESSAGE_TYPE_LINK:
+				LinkMessage linkMessage = (LinkMessage) DataUtil.strMap2Object(requestMap, LinkMessage.class);
 				
-			} else if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_VOICE)) {
+				break;
+			case MessageUtil.IN_MESSAGE_TYPE_VOICE:
+				VoiceMessage voiceMessage = (VoiceMessage) DataUtil.strMap2Object(requestMap, VoiceMessage.class);
 				
-			} else if (msgType.equals(MessageUtil.IN_MESSAGE_TYPE_EVENT)) {
-				// 事件类型
-				String eventType = requestMap.get("Event");
-				// 订阅
-				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+				break;
+			case MessageUtil.IN_MESSAGE_TYPE_EVENT:
+				String eventType = requestMap.get("Event"); // 事件类型
+				switch (eventType) {
+				case MessageUtil.EVENT_TYPE_UNSUBSCRIBE:
 					
-				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) { // 取消订阅
-					// 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
-				} else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) { // 自定义菜单点击事件
-					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
-					String eventKey = requestMap.get("EventKey");
-
+					break;
+				case MessageUtil.EVENT_TYPE_SCAN:
+					QRCodeEvent qrCodeEvent = (QRCodeEvent) DataUtil.strMap2Object(requestMap, QRCodeEvent.class);
 					
-				} else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) { // 自定义链接菜单访问事件
-
+					break;
+				case MessageUtil.EVENT_TYPE_LOCATION:
+					LocationEvent locationEvent = (LocationEvent) DataUtil.strMap2Object(requestMap, LocationEvent.class);
+					
+					break;
+				default:
+					KeyEvent keyEvent = (KeyEvent) DataUtil.strMap2Object(requestMap, KeyEvent.class);
+					switch (eventType) {
+					case MessageUtil.EVENT_TYPE_SUBSCRIBE:
+						if (keyEvent.getEventKey().startsWith("qrscene_")) {
+							QRCodeEvent codeEvent = (QRCodeEvent) DataUtil.strMap2Object(requestMap, QRCodeEvent.class);
+							
+						} else {
+							
+						}
+						break;
+					case MessageUtil.EVENT_TYPE_CLICK:
+						
+						break;
+					case MessageUtil.EVENT_TYPE_VIEW:
+						break;
+					}
+					break;
 				}
+				break;
+			default:
+				break;
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());

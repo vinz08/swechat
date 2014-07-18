@@ -60,6 +60,10 @@ public class MessageUtil {
 
 	public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe"; // 事件类型：unsubscribe(取消订阅)
 
+	public static final String EVENT_TYPE_LOCATION = "LOCATION"; // 事件类型：LOCATION(上报地理位置事件)
+	
+	public static final String EVENT_TYPE_SCAN = "SCAN"; // 事件类型：SCAN(二维码扫描事件)
+	
 	public static final String EVENT_TYPE_CLICK = "CLICK"; // 事件类型：CLICK(自定义菜单点击事件)
 	
 	public static final String EVENT_TYPE_VIEW = "VIEW"; // 事件类型：VIEW(自定义链接菜单访问事件)
@@ -87,8 +91,9 @@ public class MessageUtil {
 		List<Element> elementList = root.elements();
 
 		// 遍历所有子节点
-		for (Element e : elementList)
+		for (Element e : elementList) {
 			map.put(e.getName(), e.getText());
+		}
 
 		// 释放资源
 		inputStream.close();
