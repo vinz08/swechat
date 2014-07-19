@@ -1,6 +1,8 @@
 package com.wenzchao.wechat.util;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -12,6 +14,13 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONException;
@@ -349,5 +358,84 @@ public class WechatUtil {
 		}
 		return userInfo;
 	}
-
+	
+	public static String send_all_by_openid_list = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN";
+	
+	public static void sendAllByOpenIdList(String accessToken, String jsonMessage){
+		String url = send_all_by_openid_list.replace("ACCESS_TOKEN", accessToken);
+		// 调用接口
+		JSONObject jsonObject = httpRequest(url, "POST", jsonMessage);
+		System.out.println(jsonObject.toJSONString());
+	}
+	
+	public static String upload_news = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=ACCESS_TOKEN";
+	
+	public static String uploadNews(String accessToken, String jsonNews) {
+		String url = upload_news.replace("ACCESS_TOKEN", accessToken);
+		// 调用接口
+		JSONObject jsonObject = httpRequest(url, "POST", jsonNews);
+		System.out.println(jsonObject.toJSONString());
+		return jsonObject.getString("media_id");
+	}
+	
+	public static String get_user_list = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
+	
+	public static JSONObject getUserList(String accessToken, String nextOpenId) {
+		String url = get_user_list.replace("ACCESS_TOKEN", accessToken).replace("NEXT_OPENID", nextOpenId);
+		// 调用接口
+		JSONObject jsonObject = httpRequest(url, "GET", null);
+		System.out.println(jsonObject.toJSONString());
+		return jsonObject;
+	}
+	
+	public static String send_message = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN";
+	
+	public static void sendMessage(String accessToken, String jsonMessage) {
+		String url = send_message.replace("ACCESS_TOKEN", accessToken);
+		// 调用接口
+		JSONObject jsonObject = httpRequest(url, "POST", jsonMessage);
+		System.out.println(jsonObject.toJSONString());
+	}
+	
+	
+	// 上传文件
+	public static String upload_file = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+	
+	/**
+	 * 上传文件
+	 * 
+	 * @param accessToken
+	 * @param type
+	 * @param filePath
+	 * @return
+	 */
+	public static String uploadFile(String accessToken, String type, String filePath) {
+		String mediaId = null;
+		String url = upload_file.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
+		File file = new File(filePath);
+		
+		// 调用接口
+		HttpClient client = new HttpClient();
+		PostMethod postMethod = new PostMethod(url);
+		
+		try {
+			//构造请求参数
+			Part[] parts = {
+				new FilePart(file.getName(), file),
+				new StringPart("access_token", accessToken)
+			};
+			postMethod.setRequestEntity(new MultipartRequestEntity(parts, postMethod.getParams()));
+			client.executeMethod(postMethod);
+			JSONObject jsonObject = JSONObject.parseObject(postMethod.getResponseBodyAsString());
+			if (null != jsonObject) {
+				mediaId = jsonObject.getString("media_id");
+			}
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mediaId;
+	}
+	
 }
