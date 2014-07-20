@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.CallableStatementCallback;
@@ -31,7 +32,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @Repository
 public class BaseDao {
 
-	private static Logger log = Logger.getLogger(BaseDao.class);
+	private static Logger log = LoggerFactory.getLogger(BaseDao.class);
 
 	@Autowired
 	private DataSourceTransactionManager transactionManager;

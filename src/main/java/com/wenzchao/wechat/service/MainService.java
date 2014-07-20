@@ -7,7 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.wenzchao.core.util.DataUtil;
@@ -26,7 +27,7 @@ import com.wenzchao.wechat.util.MessageUtil;
 @Service
 public class MainService {
 
-	private static Logger log = Logger.getLogger(MainService.class);
+	private static Logger log = LoggerFactory.getLogger(MainService.class);
 
 	/**
 	 * 处理微信发来的请求
