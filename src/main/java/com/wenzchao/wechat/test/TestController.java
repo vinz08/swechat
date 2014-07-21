@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.wenzchao.core.dao.BaseDao;
+import com.wenzchao.wechat.util.MessageType;
 
 @Controller
 @Transactional(rollbackFor = { RuntimeException.class, Exception.class })
@@ -28,5 +29,9 @@ public class TestController {
 		baseDao.update("insert into test values(?)", Arrays.asList(id));
 		
 		return "";
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(MessageType.valueOf("out_message_type_text".toUpperCase()).getType());
 	}
 }

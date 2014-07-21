@@ -7,15 +7,15 @@ package com.wenzchao.wechat.entity.message.out;
  * 
  */
 public class TextMessage extends BaseMessage {
-
-	private String Content; // 消息内容
+	
+	private String content; // 消息内容
 
 	public String getContent() {
-		return Content;
+		return content;
 	}
 
 	public void setContent(String content) {
-		this.Content = content;
+		this.content = content;
 	}
 
 }

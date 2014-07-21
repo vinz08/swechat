@@ -18,7 +18,7 @@ public class BaseMessage {
 	}
 
 	public void setToUserName(String toUserName) {
-		this.ToUserName = toUserName;
+		ToUserName = toUserName;
 	}
 
 	public String getFromUserName() {
@@ -26,7 +26,7 @@ public class BaseMessage {
 	}
 
 	public void setFromUserName(String fromUserName) {
-		this.FromUserName = fromUserName;
+		FromUserName = fromUserName;
 	}
 
 	public long getCreateTime() {
@@ -34,7 +34,7 @@ public class BaseMessage {
 	}
 
 	public void setCreateTime(long createTime) {
-		this.CreateTime = createTime;
+		CreateTime = createTime;
 	}
 
 	public String getMsgType() {
@@ -42,7 +42,7 @@ public class BaseMessage {
 	}
 
 	public void setMsgType(String msgType) {
-		this.MsgType = msgType;
+		MsgType = msgType;
 	}
 
 }
