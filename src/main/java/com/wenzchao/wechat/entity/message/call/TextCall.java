@@ -1,5 +1,6 @@
 package com.wenzchao.wechat.entity.message.call;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.wenzchao.wechat.entity.message.mass.Text;
 
 /**
@@ -8,6 +9,7 @@ import com.wenzchao.wechat.entity.message.mass.Text;
  * @author Venz
  * 
  */
+@XStreamAlias("xml")
 public class TextCall extends Call {
 
 	private Text text;
