@@ -2,6 +2,7 @@ package com.wenzchao.wechat.util;
 
 import java.io.InputStream;
 import java.io.Writer;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,27 @@ public class MessageUtil {
 
 		return map;
 	}
+	
+	public Object xml2Object(HttpServletRequest request) throws Exception {
+		// 从request中取得输入流
+		InputStream inputStream = request.getInputStream();
+		return xstream.fromXML(inputStream);
+	}
 
+	public static void main(String[] args) {
+		TextMessage message = new TextMessage();
+		message.setContent("sdf");
+		message.setCreateTime(new Date().getTime());
+		message.setMsgType("text");
+		message.setOpenId("dfg");
+		message.setOriginalId("fdghh");
+		xstream.alias("xml", message.getClass());
+		String xml = xstream.toXML(message);
+		System.out.println(xml);
+		TextMessage textMessage = (TextMessage) xstream.fromXML(xml);
+		System.out.println(textMessage.getOpenId());
+	}
+	
 	/**
 	 * 文本消息对象转换成xml
 	 * 
@@ -102,16 +123,18 @@ public class MessageUtil {
 	 * 扩展xstream，使其支持CDATA块
 	 */
 	private static XStream xstream = new XStream(new XppDriver() {
+		@Override
 		public HierarchicalStreamWriter createWriter(Writer out) {
 			return new PrettyPrintWriter(out) {
 				// 对所有xml节点的转换都增加CDATA标记
 				boolean cdata = true;
-
-				@SuppressWarnings("rawtypes")
-				public void startNode(String name, Class clazz) {
+				
+				@Override
+				public void startNode(String name, @SuppressWarnings("rawtypes") Class clazz) {
 					super.startNode(name, clazz);
 				}
-
+				
+				@Override
 				protected void writeText(QuickWriter writer, String text) {
 					if (cdata) {
 						writer.write("<![CDATA[");
@@ -124,4 +147,8 @@ public class MessageUtil {
 			};
 		}
 	});
+	
+	static {
+		xstream.autodetectAnnotations(true);
+	}
 }

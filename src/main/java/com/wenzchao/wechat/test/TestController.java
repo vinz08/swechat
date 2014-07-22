@@ -1,6 +1,7 @@
 package com.wenzchao.wechat.test;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.wenzchao.core.dao.BaseDao;
+import com.wenzchao.wechat.entity.message.out.TextMessage;
 import com.wenzchao.wechat.util.MessageType;
+import com.wenzchao.wechat.util.MessageUtil;
 
 @Controller
 @Transactional(rollbackFor = { RuntimeException.class, Exception.class })
@@ -32,6 +35,14 @@ public class TestController {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(MessageType.valueOf("out_message_type_text".toUpperCase()).getType());
+		TextMessage message = new TextMessage();
+		message.setContent("sdf");
+		message.setCreateTime(new Date().getTime());
+		message.setMsgType("text");
+		message.setOpenId("dfg");
+		message.setOriginalId("fdghh");
+		
+		System.out.println(MessageUtil.textMessage2Xml(message));
+		
 	}
 }

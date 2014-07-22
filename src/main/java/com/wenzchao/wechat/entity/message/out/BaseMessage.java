@@ -1,5 +1,7 @@
 package com.wenzchao.wechat.entity.message.out;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 发送消息基类
  * 
@@ -8,41 +10,45 @@ package com.wenzchao.wechat.entity.message.out;
  */
 public class BaseMessage {
 
-	private String ToUserName; // 接收方帐号（一个OpenID）
-	private String FromUserName; // 开发者微信号
-	private long CreateTime; // 消息创建时间 （整型）
-	private String MsgType; // 接收消息类型 text/image/voice/video/music/news
+	@XStreamAlias("ToUserName")
+	private String openId; // 接收方帐号（一个OpenID）
+	@XStreamAlias("FromUserName")
+	private String originalId; // 开发者微信号（原始ID）
+	@XStreamAlias("CreateTime")
+	private long createTime; // 消息创建时间 （整型）
+	@XStreamAlias("MsgType")
+	private String msgType; // 接收消息类型 text/image/voice/video/music/news
 
-	public String getToUserName() {
-		return ToUserName;
+	public String getOpenId() {
+		return openId;
 	}
 
-	public void setToUserName(String toUserName) {
-		ToUserName = toUserName;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 
-	public String getFromUserName() {
-		return FromUserName;
+	public String getOriginalId() {
+		return originalId;
 	}
 
-	public void setFromUserName(String fromUserName) {
-		FromUserName = fromUserName;
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
 	}
 
 	public long getCreateTime() {
-		return CreateTime;
+		return createTime;
 	}
 
 	public void setCreateTime(long createTime) {
-		CreateTime = createTime;
+		this.createTime = createTime;
 	}
 
 	public String getMsgType() {
-		return MsgType;
+		return msgType;
 	}
 
 	public void setMsgType(String msgType) {
-		MsgType = msgType;
+		this.msgType = msgType;
 	}
 
 }

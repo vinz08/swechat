@@ -1,5 +1,7 @@
 package com.wenzchao.wechat.entity.message.out;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 发送文本消息
  * 
@@ -8,6 +10,7 @@ package com.wenzchao.wechat.entity.message.out;
  */
 public class TextMessage extends BaseMessage {
 	
+	@XStreamAlias("Content")
 	private String content; // 消息内容
 
 	public String getContent() {
